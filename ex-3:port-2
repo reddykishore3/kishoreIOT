@@ -1,0 +1,40 @@
+rooms = {'A': 'Dirty', 'B': 'Dirty'}
+location = 'A'
+
+while True:
+    print("Location:", location)
+    print("Rooms:", rooms)
+
+    if rooms[location] == 'Dirty':
+        print("Cleaning", location)
+        rooms[location] = 'Clean'
+    elif location == 'A':
+        location = 'B'
+    else:
+        break
+
+print("All rooms are clean.")
+
+output:
+
+Location: A
+
+Rooms: {'A': 'Dirty', 'B': 'Dirty'}
+
+Cleaning A
+
+Location: A
+
+Rooms: {'A': 'Clean', 'B': 'Dirty'}
+
+Location: B
+
+Rooms: {'A': 'Clean', 'B': 'Dirty'}
+
+Cleaning B
+
+Location: B
+
+Rooms: {'A': 'Clean', 'B': 'Clean'}
+
+All rooms are clean.
