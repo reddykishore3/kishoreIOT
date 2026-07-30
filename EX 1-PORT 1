@@ -1,0 +1,94 @@
+from collections import deque
+
+goal = [1, 2, 3, 4, 5, 6, 7, 8, 0]
+
+def neighbors(state):
+    moves = []
+    i = state.index(0)
+    r, c = divmod(i, 3)
+
+    directions = [(-1,0), (1,0), (0,-1), (0,1)]
+
+    for dr, dc in directions:
+        nr, nc = r + dr, c + dc
+        if 0 <= nr < 3 and 0 <= nc < 3:
+            ni = nr * 3 + nc
+            new = state[:]
+            new[i], new[ni] = new[ni], new[i]
+            moves.append(new)
+    return moves
+
+def bfs(start):
+    q = deque([(start, [])])
+    visited = []
+
+    while q:
+        state, path = q.popleft()
+        if state == goal:
+            return path + [state]
+
+        if state not in visited:
+            visited.append(state)
+            for n in neighbors(state):
+                q.append((n, path + [state]))
+
+start = [2, 5, 3,
+         4, 0, 6,
+         7, 1, 8]
+
+solution = bfs(start)
+
+for step in solution:
+    print(step[0:3])
+    print(step[3:6])
+    print(step[6:9])
+    print()
+
+OUTPUT:
+
+[2, 5, 3]
+[4, 0, 6]
+[7, 1, 8]
+
+[2, 5, 3]
+[4, 1, 6]
+[7, 0, 8]
+
+[2, 5, 3]
+[4, 1, 6]
+[0, 7, 8]
+
+[2, 5, 3]
+[0, 1, 6]
+[4, 7, 8]
+
+[2, 5, 3]
+[1, 0, 6]
+[4, 7, 8]
+
+[2, 0, 3]
+[1, 5, 6]
+[4, 7, 8]
+
+[0, 2, 3]
+[1, 5, 6]
+[4, 7, 8]
+
+[1, 2, 3]
+[0, 5, 6]
+[4, 7, 8]
+
+[1, 2, 3]
+[4, 5, 6]
+[0, 7, 8]
+
+[1, 2, 3]
+[4, 5, 6]
+[7, 0, 8]
+
+[1, 2, 3]
+[4, 5, 6]
+[7, 8, 0]
+
+
+=== Code Execution Successful ===
