@@ -1,0 +1,167 @@
+PORT 1;
+
+# Alpha-Beta Pruning
+
+def minimax(depth, node_index, maximizing_player, values, alpha, beta):
+    # Leaf node
+    if depth == 3:
+        return values[node_index]
+
+    if maximizing_player:
+        best = -9999
+
+        for i in range(2):
+            value = minimax(depth + 1, node_index * 2 + i,
+                            False, values, alpha, beta)
+
+            best = max(best, value)
+            alpha = max(alpha, best)
+
+            # Alpha-Beta pruning
+            if beta <= alpha:
+                break
+
+        return best
+
+    else:
+        best = 9999
+
+        for i in range(2):
+            value = minimax(depth + 1, node_index * 2 + i,
+                            True, values, alpha, beta)
+
+            best = min(best, value)
+            beta = min(beta, best)
+
+            # Alpha-Beta pruning
+            if beta <= alpha:
+                break
+
+        return best
+
+
+# Leaf node values
+values = [3, 5, 6, 9, 1, 2, 0, -1]
+
+result = minimax(0, 0, True, values, -9999, 9999)
+
+print("Optimal value:", result)
+
+OUTPUT:
+
+Optimal value: 5
+
+POTT 2:
+
+# Decision Tree Classifier
+
+from sklearn.tree import DecisionTreeClassifier
+
+# Features:
+# Outlook: 0 = Sunny, 1 = Overcast, 2 = Rain
+# Temperature: 0 = Cool, 1 = Mild, 2 = Hot
+# Humidity: 0 = Normal, 1 = High
+# Wind: 0 = Weak, 1 = Strong
+
+X = [
+    [0, 2, 1, 0],
+    [0, 2, 1, 1],
+    [1, 2, 1, 0],
+    [2, 1, 1, 0],
+    [2, 0, 0, 0],
+    [2, 0, 0, 1],
+    [1, 0, 0, 1],
+    [0, 1, 1, 0],
+    [0, 0, 0, 0],
+    [2, 1, 0, 0],
+    [0, 1, 0, 1],
+    [1, 1, 1, 1],
+    [1, 2, 0, 0],
+    [2, 1, 1, 1]
+]
+
+# Target:
+# 1 = Yes, 0 = No
+y = [0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0]
+
+# Create Decision Tree
+model = DecisionTreeClassifier(criterion="entropy")
+
+# Train the model
+model.fit(X, y)
+
+# Test data
+test_data = [
+    [0, 1, 0, 0]
+]
+
+# Prediction
+prediction = model.predict(test_data)
+
+if prediction[0] == 1:
+    print("Prediction: Play Tennis")
+else:
+    print("Prediction: Do Not Play Tennis")
+
+output:
+
+Prediction: Play Tennis
+
+PORT 3;
+
+# Feed Forward Neural Network
+
+import numpy as np
+from sklearn.neural_network import MLPClassifier
+
+# Input data
+# XOR problem
+X = np.array([
+    [0, 0],
+    [0, 1],
+    [1, 0],
+    [1, 1]
+])
+
+# Output
+y = np.array([0, 1, 1, 0])
+
+# Create Feed Forward Neural Network
+model = MLPClassifier(
+    hidden_layer_sizes=(4,),
+    activation='relu',
+    solver='lbfgs',
+    max_iter=1000,
+    random_state=1
+)
+
+# Train the network
+model.fit(X, y)
+
+# Test data
+test_data = np.array([
+    [0, 0],
+    [0, 1],
+    [1, 0],
+    [1, 1]
+])
+
+# Prediction
+prediction = model.predict(test_data)
+
+print("Input:")
+print(test_data)
+
+print("\nPredicted Output:")
+print(prediction)
+
+OUTPUT:
+
+Input:
+[[0 0]
+ [0 1]
+ [1 0]
+ [1 1]]
+
+Predicted Output:
+[0 1 1 0]
